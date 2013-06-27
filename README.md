@@ -1,12 +1,12 @@
 **************************************************************************
-* Profiling for  NBF LibTM  - UofT - July 2013
+* Profiling for  NBF LibTM  - UofT - July 2013 ***************************
 **************************************************************************
 
 1 - Summary about the codes  (**Some can be re-used to generate statistics for each transaction)  
-2 - Instructions and how to execute
-3 - Results for NBF
-4 - Results for LibTM
-5 - Suggestions for the future
+2 - Instructions and how to execute.
+3 - Results for NBF.
+4 - Results for LibTM.
+5 - Suggestions for the future.
 
 
 1 - Summary about the Codes 

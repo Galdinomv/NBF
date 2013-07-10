@@ -1,6 +1,8 @@
 **************************************************************************
-* Profiling for  NBF LibTM  - UofT - July 2013 ***************************
+* Profiling for  NBF LibTM  - UofT   *************************************
+* Last Update July 2013 - Marcus Galdino  ********************************
 **************************************************************************
+
 
 1 - Summary about the codes  (**Some can be re-used to generate statistics for each transaction)  
 2 - Instructions and how to execute.

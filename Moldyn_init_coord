@@ -1,0 +1,76 @@
+/*
+ !============================================================================
+ !  Function : InitCoordinates()
+ !  Purpose  :
+ !     Initialises the coordinates of the molecules by
+ !     distribuuting them uniformly over the entire box
+ !     with slight perturbations.
+ !============================================================================
+ */
+
+
+#define N_Clusters 8
+
+void InitCoordinates(int numMoles, int siz, double perturb)
+{
+    int n,npoints,index=0;
+    double i=0,j=0,k=0,d=0;    
+    int dist_size = 4;         /**** This var Defines space between molecules in the distribution ****/
+    //double tmp = 0;
+
+    FILE *fp;
+    char str[200];
+    char * str1;
+    double Coordinates[N_Clusters * 3 ];    /* Num of Clusters * 3 Axis = Num of coordinates */
+
+    /* coordinates_files */
+    fp = fopen("coordinates", "r");
+
+    while(fscanf(fp, "%s", str) == 1)
+    {
+           str1=strtok(str,";");          //Define separatos
+           while (str1 != NULL)
+           {
+               Coordinates[index]=atof(str1);
+               str1 = strtok (NULL, ";");
+               index++;
+           }
+    }
+
+    npoints = siz * siz * siz ;
+    for ( n =0; n< npoints; n++) {
+        
+        /* The same structure was kept, so 2 coordinates were distributed in each chunk */
+
+        x[IND(0,n)] = Coordinates[0 + ((n%2)*3)] + (((int)i)*dist_size); 
+        x[IND(1,n)] = Coordinates[1 + ((n%2)*3)] + (j*dist_size);
+        x[IND(2,n)] = Coordinates[2 + ((n%2)*3)] + (k*dist_size);
+        
+        x[IND(0,n+npoints)] = Coordinates[6 + ((n%2)*3)] + (i*dist_size);
+        x[IND(1,n+npoints)] = Coordinates[7 + ((n%2)*3)] + (j*dist_size); 
+        x[IND(2,n+npoints)] = Coordinates[8 + ((n%2)*3)] + (k*dist_size); 
+        
+        x[IND(0,n+npoints*2)] = Coordinates[12 + ((n%2)*3)] + (i*dist_size);
+        x[IND(1,n+npoints*2)] = Coordinates[13 + ((n%2)*3)] + (j*dist_size);
+        x[IND(2,n+npoints*2)] = Coordinates[14 + ((n%2)*3)] + (k*dist_size);
+        
+        x[IND(0,n+npoints*3)] = Coordinates[18 + ((n%2)*3)] + (i*dist_size);
+        x[IND(1,n+npoints*3)] = Coordinates[19 + ((n%2)*3)] + (j*dist_size);
+        x[IND(2,n+npoints*3)] = Coordinates[20 + ((n%2)*3)] + (k*dist_size); 
+
+        i=i+ 0.5; 
+
+       /* BOXSIZE can be used to dist mol into X,Y,Z axis, however for Larger(8788 mol) BOXSIZE=13 (not even),so X,Y,Z were defined manually */
+
+       # ifdef   SMALL || MEDIUM || SUPER
+        if (i == BOXSIZE) { j=j+0.5 ; i=0; }
+        if (j == BOXSIZE) { k=k+1 ; j=0; }
+        if (k == BOXSIZE/2) { k=0; }
+       #else
+        if (i == 10) { j=j+1 ; i=0; }
+        if (j == 10) { k=k+1 ; j=0; }
+        if (k == 11) { k=0; }
+       # endif 
+
+    }
+}
